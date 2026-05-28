@@ -42,6 +42,9 @@ New command -> what it does:
 * ```git style "commit message here"``` -> ```git commit -m 'style: commit message here'```
 * ```git test "commit message here"``` -> ```git commit -m 'test: commit message here'```
 * ```git localize "commit message here"``` -> ```git commit -m 'localize: commit message here'```
+* ```git ci "commit message here"``` -> ```git commit -m 'ci: commit message here'```
+* ```git build "commit message here"``` -> ```git commit -m 'build: commit message here'```
+* ```git perf "commit message here"``` -> ```git commit -m 'perf: commit message here'```
 
 If you would like to add an optional scope, as described [here](https://conventionalcommits.org/), use the '-s' flag and quote the scope message:
 
