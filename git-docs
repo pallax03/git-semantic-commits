@@ -1,10 +1,16 @@
 #!/bin/bash
-if [ -z "$1" ]
-  then
-    git commit -m "docs: " -e
-  elif [ "$1" == "-s" ]
-  then
-    git commit -m "docs(${2}): ${@:3}"
-  else
-    git commit -m "docs: ${@}"
+scope=""
+bang=""
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -s) scope="($2)"; shift 2 ;;
+    -w) bang="!"; shift 1 ;;
+    *) break ;;
+  esac
+done
+
+if [ -z "$1" ]; then
+  git commit -m "docs${scope}${bang}: " -e
+else
+  git commit -m "docs${scope}${bang}: ${*}"
 fi

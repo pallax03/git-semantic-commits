@@ -1,10 +1,16 @@
 #!/bin/bash
-if [ -z "$1" ]
-  then
-    git commit -m "build: " -e
-  elif [ "$1" == "-s" ]
-  then
-    git commit -m "build(${2}): ${@:3}"
-  else
-    git commit -m "build: ${@}"
+scope=""
+bang=""
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -s) scope="($2)"; shift 2 ;;
+    -w) bang="!"; shift 1 ;;
+    *) break ;;
+  esac
+done
+
+if [ -z "$1" ]; then
+  git commit -m "build${scope}${bang}: " -e
+else
+  git commit -m "build${scope}${bang}: ${*}"
 fi

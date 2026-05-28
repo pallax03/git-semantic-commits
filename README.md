@@ -50,6 +50,11 @@ If you would like to add an optional scope, as described [here](https://conventi
 
 * ```git docs -s "scope here" "commit message here"``` -> ```git commit -m 'docs(scope here): commit message here'```
 
+If you want to draw attention to a breaking change, you can use the '-w' (warning) flag to append '!' to the type or scope:
+
+* ```git feat -w "drop support for Node 6"``` -> ```git commit -m 'feat!: drop support for Node 6'```
+* ```git feat -s "api" -w "send an email"``` -> ```git commit -m 'feat(api)!: send an email'```
+
 If you would still like to use your text editor for your commit messages
 you can omit the message, and do your commit message in your editor.
 

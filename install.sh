@@ -22,14 +22,8 @@ function register_path {
 # $1 — git alias and semantic message prefix
 # [$2] — (optional) custom semantic message prefix
 function register_git_alias {
-  if ! git config --global --get-all alias.$1 &>/dev/null; then
-    if [[ -z $2 ]]; then
-      git config --global alias.$1 '!f() { [[ -z "$GIT_PREFIX" ]] || cd "$GIT_PREFIX" && if [ -z "$1" ]; then git commit -m "'$1': " -e; elif [ "$1" == "-s" ]; then git commit -m "'$1'(${2}): ${@:3}"; else git commit -m "'$1': ${@}"; fi }; f'
-
-    else
-      git config --global alias.$1 '!f() { [[ -z "$GIT_PREFIX" ]] || cd "$GIT_PREFIX" && if [ -z "$1" ]; then git commit -m "'$2': " -e; elif [ "$1" == "-s" ]; then git commit -m "'$2'(${2}): ${@:3}"; else git commit -m "'$2': ${@}"; fi }; f'
-    fi
-  fi
+  local type="${2:-$1}"
+  git config --global alias.$1 '!f() { [[ -z "$GIT_PREFIX" ]] || cd "$GIT_PREFIX"; local scope="" bang=""; while [[ $# -gt 0 ]]; do case "$1" in -s) scope="($2)"; shift 2 ;; -w) bang="!"; shift 1 ;; *) break ;; esac; done; if [ -z "$1" ]; then git commit -m "'$type'${scope}${bang}: " -e; else git commit -m "'$type'${scope}${bang}: ${*}"; fi }; f'
 }
 
 # Check if command was finished successfully
